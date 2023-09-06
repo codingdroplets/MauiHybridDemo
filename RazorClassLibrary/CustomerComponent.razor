@@ -1,0 +1,67 @@
+﻿<div class="row">
+    <div class="col-md-4 mb-3">
+        <input class="form-control" placeholder="Name" @bind="model.Name" />
+    </div>
+    <div class="col-md-4 mb-3">
+        <input class="form-control" placeholder="Email" type="email" @bind="model.Email" />
+    </div>
+    <div class="col-md-4 mb-3">
+        <button class="btn btn-primary" @onclick="AddCustomer">Add Customer</button>
+    </div>
+    <div class="col-md-4 mb-3">
+        <button class="btn btn-primary" @onclick="ShowAlert">Show Alert</button>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (customers?.Any() ?? false)
+                    {
+                        @foreach (var customer in customers)
+                        {
+                            <tr>
+                                <td>@customer.Name</td>
+                                <td>@customer.Email</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="text-center" colspan="2">No Customers Added</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback ShowAlert{ get; set; }
+
+    private class Customer
+    {
+        public string? Name { get; set; }
+        public string? Email { get; set; }
+    }
+
+    private List<Customer> customers = new();
+    private Customer model = new();
+
+    private void AddCustomer()
+    {
+        customers.Add(model);
+        model = new();
+    }
+}

@@ -1,0 +1,14 @@
+﻿@page "/"
+@using RazorClassLibrary
+@inject IJSRuntime js
+
+<PageTitle>Index</PageTitle>
+
+<CustomerComponent ShowAlert="ShowAlert" />
+
+@code{
+    private async Task ShowAlert()
+    {
+        await js.InvokeVoidAsync("alert", "Some Message");
+    }
+}

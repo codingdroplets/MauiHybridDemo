@@ -1,0 +1,16 @@
+﻿@page "/"
+@using RazorClassLibrary
+
+<CustomerComponent ShowAlert="ShowAlert" />
+
+@code{
+    private async Task ShowAlert()
+    {
+        if(Connectivity.NetworkAccess != NetworkAccess.Internet)
+        {
+            await Application.Current.MainPage.DisplayAlert("Connectivity Error", "No Internet Access", "OK");
+        }
+
+        await Application.Current.MainPage.DisplayAlert("Alert Title", "Some Message", "OK");
+    }
+}
